@@ -32,78 +32,72 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
+    val scrollState = rememberScrollState()
+    val alpha = if (scrollState.value > 100) 0f else (100 - scrollState.value) / 100f
 
     Column(
-        modifier = modifier
-            .padding(top = 20.dp)
+        modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState)
     ) {
-        val scrollState = rememberScrollState()
-        val alpha = if (scrollState.value > 50) 0f else scrollState.value / 50f
+        HomeTopBar(
+            title = stringResource(id = R.string.good_afternoon),
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, top = 20.dp)
+                .alpha(alpha)
+        )
 
-        Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(scrollState)
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = (30 * alpha).dp),
+            text = stringResource(id = R.string.recently_played),
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
         ) {
-            HomeTopBar(
-                title = stringResource(id = R.string.good_afternoon),
-                modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp)
-                    .alpha(alpha)
-            )
-
-            Text(
-                modifier = Modifier.padding(start = 16.dp, top = 30.dp),
-                text = stringResource(id = R.string.recently_played),
-                style = MaterialTheme.typography.titleLarge,
-                color = Color.White,
-            )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
-            ) {
-                items(DataHelper.recentlyPlayedMusicList) {
-                    RecentlyPlayedView(music = it)
-                }
+            items(DataHelper.recentlyPlayedMusicList) {
+                RecentlyPlayedView(music = it)
             }
+        }
 
-            Text(
-                modifier = Modifier.padding(start = 16.dp, top = 40.dp),
-                text = stringResource(id = R.string.to_get_you_started),
-                style = MaterialTheme.typography.titleLarge,
-                color = Color.White,
-            )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
-            ) {
-                val suggestionListColors = listOf(Pink, DarkYellow, Cyan)
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 40.dp),
+            text = stringResource(id = R.string.to_get_you_started),
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
+        ) {
+            val suggestionListColors = listOf(Pink, DarkYellow, Cyan)
 
-                DataHelper.recentlyPlayedMusicList.forEachIndexed { index, music ->
-                    item {
-                        SuggestionAlbumView(
-                            music = music,
-                            titleColor = suggestionListColors[index % suggestionListColors.size]
-                        ) {
-                            navController.navigateToPlaylistDetailsScreen(music)
-                        }
+            DataHelper.recentlyPlayedMusicList.forEachIndexed { index, music ->
+                item {
+                    SuggestionAlbumView(
+                        music = music,
+                        titleColor = suggestionListColors[index % suggestionListColors.size]
+                    ) {
+                        navController.navigateToPlaylistDetailsScreen(music)
                     }
                 }
             }
+        }
 
-            Text(
-                modifier = Modifier.padding(start = 16.dp, top = 40.dp),
-                text = stringResource(id = R.string.try_something_else),
-                style = MaterialTheme.typography.titleLarge,
-                color = Color.White,
-            )
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
-            ) {
-                items(DataHelper.recentlyPlayedMusicList) {
-                    ExtraSuggestionView(music = it)
-                }
+        Text(
+            modifier = Modifier.padding(start = 16.dp, top = 40.dp),
+            text = stringResource(id = R.string.try_something_else),
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+        )
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
+        ) {
+            items(DataHelper.recentlyPlayedMusicList) {
+                ExtraSuggestionView(music = it)
             }
         }
     }

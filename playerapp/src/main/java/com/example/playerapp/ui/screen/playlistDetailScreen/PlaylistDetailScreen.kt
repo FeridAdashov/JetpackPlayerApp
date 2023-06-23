@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,47 +49,48 @@ fun PlaylistDetailScreen(
         onBackPressed()
     }
 
+    val scrollState = rememberScrollState()
+    val alpha = if (scrollState.value > 100) 0f else (100 - scrollState.value) / 100f
+
     Column(
-        modifier = modifier.padding(top = 20.dp)
+        modifier
+            .fillMaxSize()
+            .verticalScroll(scrollState),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PlaylistDetailScreenTopBar(
             stringResource(id = R.string.playing_from_playlist),
             music = music,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, bottom = 4.dp, top = 20.dp)
+                .alpha(alpha),
             onClickBack = ::onBackPressed
         )
 
-        Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Spacer(modifier = Modifier.height(40.dp))
-            music.imageDrawable?.let { image ->
-                PlaylistDetailScreenPoster(drawable = image)
-            }
-            Spacer(modifier = Modifier.height(40.dp))
-            PlaylistDetailScreenMusicController(
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
-            PlaylistDetailScreenLyrics(
-                modifier = Modifier.padding(
-                    top = 30.dp,
-                    start = 16.dp,
-                    end = 16.dp
-                ), music = music
-            )
-            PlaylistDetailScreenEvents(
-                modifier = Modifier.padding(
-                    top = 30.dp,
-                    start = 16.dp,
-                    end = 16.dp
-                ),
-                events = DataHelper.events
-            )
-            Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height((40 * alpha).dp))
+        music.imageDrawable?.let { image ->
+            PlaylistDetailScreenPoster(drawable = image)
         }
+        Spacer(modifier = Modifier.height(40.dp))
+        PlaylistDetailScreenMusicController(
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+        PlaylistDetailScreenLyrics(
+            modifier = Modifier.padding(
+                top = 30.dp,
+                start = 16.dp,
+                end = 16.dp
+            ), music = music
+        )
+        PlaylistDetailScreenEvents(
+            modifier = Modifier.padding(
+                top = 30.dp,
+                start = 16.dp,
+                end = 16.dp
+            ),
+            events = DataHelper.events
+        )
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
