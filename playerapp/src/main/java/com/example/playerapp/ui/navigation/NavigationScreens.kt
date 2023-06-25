@@ -31,4 +31,9 @@ sealed class NavigationScreens(val route: String, val title: String, val iconDra
         route = "playlistDetails",
         title = "PlaylistDetails",
     )
+
+    object AboutAlbum : NavigationScreens(
+        route = "aboutAlbum",
+        title = "AboutAlbum",
+    )
 }

@@ -27,6 +27,9 @@ val Pink = Color(0xFFE06D94)
 val DarkYellow = Color(0xFFEBB962)
 val Cyan = Color(0xFF7DD6EA)
 
+val BlueButtonGradientStart = Color(0xFF016BB8)
+val BlueButtonGradientEnd = Color(0xFF11A8FD)
+
 val PrimaryDark = Color(0xFF7F8489)
 val SecondaryDark = Color(0xFF1C1F22)
 val GrayDark = Color(0xFF282C30)

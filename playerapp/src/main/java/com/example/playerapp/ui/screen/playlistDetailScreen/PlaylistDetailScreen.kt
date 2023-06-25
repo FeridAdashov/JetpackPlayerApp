@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -23,8 +24,6 @@ import com.example.playerapp.R
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.utils.DataHelper
-
-const val PLAYLIST_DETAILS_SCREEN_MUSIC_ARG = "music"
 
 @Composable
 fun PlaylistDetailScreen(
@@ -69,7 +68,10 @@ fun PlaylistDetailScreen(
 
         Spacer(modifier = Modifier.height((40 * alpha).dp))
         music.imageDrawable?.let { image ->
-            PlaylistDetailScreenPoster(drawable = image)
+            PosterView(
+                modifier = Modifier.size(180.dp, 180.dp),
+                drawable = image
+            )
         }
         Spacer(modifier = Modifier.height(40.dp))
         PlaylistDetailScreenMusicController(
@@ -88,7 +90,8 @@ fun PlaylistDetailScreen(
                 start = 16.dp,
                 end = 16.dp
             ),
-            events = DataHelper.events
+            events = DataHelper.events,
+            navController = navController,
         )
         Spacer(modifier = Modifier.height(40.dp))
     }

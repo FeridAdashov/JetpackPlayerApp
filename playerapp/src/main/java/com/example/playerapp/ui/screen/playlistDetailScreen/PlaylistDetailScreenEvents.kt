@@ -35,7 +35,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
+import com.example.playerapp.extension.navigateToAboutAlbumScreen
 import com.example.playerapp.ui.globalComponents.ShadowedGradientRoundedContainer
 import com.example.playerapp.ui.model.MusicEvent
 import com.example.playerapp.ui.model.MusicEventType
@@ -45,15 +48,27 @@ import com.example.playerapp.utils.DataHelper
 import com.example.playerapp.utils.IconGradient
 
 @Composable
-fun PlaylistDetailScreenEvents(modifier: Modifier = Modifier, events: List<MusicEvent>) {
+fun PlaylistDetailScreenEvents(
+    events: List<MusicEvent>,
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(40.dp)) {
-        events.map { MusicEventView(event = it) }
+        events.map { MusicEventView(event = it, navController) }
     }
 }
 
 @Composable
-fun MusicEventView(event: MusicEvent, modifier: Modifier = Modifier) {
-    ShadowedGradientRoundedContainer(modifier = modifier) {
+fun MusicEventView(
+    event: MusicEvent, navController: NavHostController, modifier: Modifier = Modifier,
+) {
+    ShadowedGradientRoundedContainer(modifier = modifier.clickable {
+        if (event.type == MusicEventType.ABOUT)
+            navController.navigateToAboutAlbumScreen(
+                album = DataHelper.album,
+                socialNetworks = DataHelper.socialNetworks
+            )
+    }) {
         Text(
             modifier = Modifier,
             text = stringResource(id = if (event.type == MusicEventType.ABOUT) R.string.about_artist else R.string.live_events),
@@ -75,8 +90,6 @@ fun MusicEventView(event: MusicEvent, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(20.dp))
         Box(modifier = Modifier.fillMaxWidth()) {
             Column {
-                var isExpanded by remember { mutableStateOf(false) }
-
                 Text(
                     modifier = Modifier,
                     text = event.title,
@@ -175,6 +188,7 @@ fun MusicEventView(event: MusicEvent, modifier: Modifier = Modifier) {
 @Composable
 fun PlaylistDetailScreenEventsPreview() {
     PlaylistDetailScreenEvents(
-        events = DataHelper.events
+        events = DataHelper.events,
+        navController = rememberNavController()
     )
 }

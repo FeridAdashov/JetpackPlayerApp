@@ -7,13 +7,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.playerapp.extension.fromJson
+import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_ALBUM_ARG
+import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_SOCIALS_ARG
+import com.example.playerapp.ui.constants.NavigationConstants.PLAYLIST_DETAILS_SCREEN_MUSIC_ARG
+import com.example.playerapp.ui.model.Album
 import com.example.playerapp.ui.model.Music
+import com.example.playerapp.ui.model.SocialNetwork
 import com.example.playerapp.ui.screen.LibraryScreen
 import com.example.playerapp.ui.screen.PremiumScreen
 import com.example.playerapp.ui.screen.SearchScreen
+import com.example.playerapp.ui.screen.aboutAlbumScreen.AlbumDetailScreen
 import com.example.playerapp.ui.screen.homeScreen.HomeScreen
-import com.example.playerapp.ui.screen.playlistDetailScreen.PLAYLIST_DETAILS_SCREEN_MUSIC_ARG
 import com.example.playerapp.ui.screen.playlistDetailScreen.PlaylistDetailScreen
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -41,6 +48,29 @@ fun NavGraph(navController: NavHostController) {
                 PlaylistDetailScreen(
                     navController = navController,
                     music = music
+                )
+            }
+        }
+        composable(
+            route = "${NavigationScreens.AboutAlbum.route}/{$ABOUT_ALBUM_SCREEN_ALBUM_ARG}/{$ABOUT_ALBUM_SCREEN_SOCIALS_ARG}",
+            arguments = listOf(navArgument(ABOUT_ALBUM_SCREEN_ALBUM_ARG) {
+                type = NavType.StringType
+            }, navArgument(ABOUT_ALBUM_SCREEN_SOCIALS_ARG) {
+                type = NavType.StringType
+                nullable = true
+            })
+        ) {
+            it.arguments?.getString(ABOUT_ALBUM_SCREEN_ALBUM_ARG)?.let { jsonString ->
+                val album = jsonString.fromJson(Album::class.java)
+                val socials = Gson().fromJson<ArrayList<SocialNetwork>>(
+                    it.arguments?.getString(ABOUT_ALBUM_SCREEN_SOCIALS_ARG), object :
+                        TypeToken<ArrayList<SocialNetwork>>() {}.type
+                )
+
+                AlbumDetailScreen(
+                    album = album,
+                    socialNetworks = socials,
+                    navController = navController,
                 )
             }
         }

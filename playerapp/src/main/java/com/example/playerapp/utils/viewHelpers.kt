@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Brush
 import com.example.playerapp.ui.theme.AppBarGradientEnd
 import com.example.playerapp.ui.theme.AppBarGradientMiddle
 import com.example.playerapp.ui.theme.AppBarGradientStart
+import com.example.playerapp.ui.theme.BlueButtonGradientEnd
+import com.example.playerapp.ui.theme.BlueButtonGradientStart
 import com.example.playerapp.ui.theme.IconGradientEnd
 import com.example.playerapp.ui.theme.IconGradientStart
 import com.example.playerapp.ui.theme.ImageGradientBorderStart
@@ -31,4 +33,8 @@ val imageComponentBorderGradient = Brush.verticalGradient(
 
 val IconGradient = Brush.verticalGradient(
     colors = listOf(IconGradientStart, IconGradientEnd)
+)
+
+val BlueButtonGradient = Brush.verticalGradient(
+    colors = listOf(BlueButtonGradientStart, BlueButtonGradientEnd)
 )
