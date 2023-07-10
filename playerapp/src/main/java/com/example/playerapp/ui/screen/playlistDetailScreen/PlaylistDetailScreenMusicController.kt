@@ -94,6 +94,6 @@ fun PlaylistDetailScreenMusicController(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun PlaylistDetailScreenMusicControllerPreview() {
+private fun PlaylistDetailScreenMusicControllerPreview() {
     PlaylistDetailScreenMusicController()
 }

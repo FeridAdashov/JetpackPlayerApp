@@ -13,7 +13,7 @@ fun PremiumScreen(navController: NavHostController = rememberNavController()) {
 
 @Preview
 @Composable
-fun PremiumScreenScreenPreview() {
+private fun PremiumScreenScreenPreview() {
     PremiumScreen()
 }
 

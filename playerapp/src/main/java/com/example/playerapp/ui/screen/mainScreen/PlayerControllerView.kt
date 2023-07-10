@@ -112,6 +112,6 @@ fun ControllerIcon(
 
 @Preview
 @Composable
-fun PlayerControllerViewOverview() {
+private fun PlayerControllerViewOverview() {
     PlayerControllerView(music = Music(title = "Don’t forget your roots - 2021"))
 }

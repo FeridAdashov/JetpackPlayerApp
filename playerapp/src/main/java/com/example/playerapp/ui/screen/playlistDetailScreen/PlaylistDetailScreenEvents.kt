@@ -186,7 +186,7 @@ fun MusicEventView(
 
 @Preview
 @Composable
-fun PlaylistDetailScreenEventsPreview() {
+private fun PlaylistDetailScreenEventsPreview() {
     PlaylistDetailScreenEvents(
         events = DataHelper.events,
         navController = rememberNavController()

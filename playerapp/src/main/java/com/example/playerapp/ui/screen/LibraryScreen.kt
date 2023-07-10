@@ -13,7 +13,7 @@ fun LibraryScreen(navController: NavHostController = rememberNavController()) {
 
 @Preview
 @Composable
-fun LibraryScreenPreview() {
+private fun LibraryScreenPreview() {
     LibraryScreen()
 }
 

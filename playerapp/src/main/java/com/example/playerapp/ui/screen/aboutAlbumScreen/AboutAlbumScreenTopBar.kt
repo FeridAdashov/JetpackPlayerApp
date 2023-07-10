@@ -40,7 +40,7 @@ fun AboutAlbumScreenTopBar(
 
 @Preview
 @Composable
-fun PlaylistDetailScreenTopBarPreview() {
+private fun PlaylistDetailScreenTopBarPreview() {
     AboutAlbumScreenTopBar(
         album = DataHelper.album
     )

@@ -55,6 +55,6 @@ fun ShadowedIconButton(
 
 @Preview
 @Composable
-fun ShadowedIconButtonPreview() {
+private fun ShadowedIconButtonPreview() {
     ShadowedIconButton(drawable = R.drawable.ic_flash)
 }

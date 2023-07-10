@@ -53,6 +53,6 @@ fun RecentlyPlayedView(modifier: Modifier = Modifier, music: Music) {
 
 @Preview
 @Composable
-fun RecentlyPlayedViewPreview() {
+private fun RecentlyPlayedViewPreview() {
     RecentlyPlayedView(music = Music("mega hit mix", imageDrawable = R.drawable.img_music_5))
 }

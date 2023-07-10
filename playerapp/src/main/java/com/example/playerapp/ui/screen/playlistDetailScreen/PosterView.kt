@@ -34,6 +34,6 @@ fun PosterView(modifier: Modifier = Modifier, @DrawableRes drawable: Int) {
 
 @Preview
 @Composable
-fun PlaylistDetailScreenPosterPreview() {
+private fun PlaylistDetailScreenPosterPreview() {
     PosterView(drawable = R.drawable.img_poster)
 }

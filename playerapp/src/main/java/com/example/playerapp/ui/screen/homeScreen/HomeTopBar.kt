@@ -43,6 +43,6 @@ fun HomeTopBar(
 
 @Preview
 @Composable
-fun HomeTopBarPreview() {
+private fun HomeTopBarPreview() {
     HomeTopBar(stringResource(id = R.string.good_afternoon))
 }

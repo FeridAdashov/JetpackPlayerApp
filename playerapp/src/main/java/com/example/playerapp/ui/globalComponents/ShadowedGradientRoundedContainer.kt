@@ -61,7 +61,7 @@ fun ShadowedGradientRoundedContainer(
 
 @Preview
 @Composable
-fun ShadowedGradientRoundedContainerPreview() {
+private fun ShadowedGradientRoundedContainerPreview() {
     ShadowedGradientRoundedContainer {
 
     }

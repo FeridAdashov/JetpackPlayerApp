@@ -105,7 +105,7 @@ fun HomeScreen(
 
 @Preview
 @Composable
-fun HomeScreenPreview() {
+private fun HomeScreenPreview() {
     HomeScreen()
 }
 

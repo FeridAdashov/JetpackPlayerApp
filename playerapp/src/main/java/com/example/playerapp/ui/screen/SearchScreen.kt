@@ -13,7 +13,7 @@ fun SearchScreen(navController: NavHostController = rememberNavController()) {
 
 @Preview
 @Composable
-fun SearchScreenPreview() {
+private fun SearchScreenPreview() {
     SearchScreen()
 }
 

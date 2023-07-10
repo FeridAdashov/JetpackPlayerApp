@@ -100,6 +100,6 @@ fun PlaylistDetailScreen(
 
 @Preview
 @Composable
-fun PlaylistDetailScreenPreview() {
+private fun PlaylistDetailScreenPreview() {
     PlaylistDetailScreen(music = Music("mega hit mix", imageDrawable = R.drawable.img_poster))
 }
