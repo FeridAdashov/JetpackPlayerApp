@@ -1,21 +1,38 @@
 package com.example.playerapp.ui.screen.playlistDetailScreen
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.BottomSheetScaffoldState
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -24,7 +41,10 @@ import com.example.playerapp.R
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.utils.DataHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistDetailScreen(
     music: Music,
@@ -33,12 +53,27 @@ fun PlaylistDetailScreen(
 ) {
     val mainViewModel: MainViewModel = hiltViewModel()
 
+    val scrollState = rememberScrollState()
+    val topBarVisibilityAlpha =
+        if (scrollState.value > 100) 0f else (100 - scrollState.value) / 100f
+
+    val bottomSheetScaffoldState =
+        rememberBottomSheetScaffoldState(bottomSheetState = SheetState(skipPartiallyExpanded = false))
+    val bottomSheetCoroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(Unit) {
         mainViewModel.changeControllerVisibility(false)
         mainViewModel.changeBottomBarVisibility(false)
     }
 
     fun onBackPressed() {
+        if (bottomSheetScaffoldState.bottomSheetState.isVisible) {
+            bottomSheetCoroutineScope.launch {
+                bottomSheetScaffoldState.bottomSheetState.hide()
+            }
+            return
+        }
+
         mainViewModel.changeControllerVisibility(true)
         mainViewModel.changeBottomBarVisibility(true)
         navController.popBackStack()
@@ -48,13 +83,20 @@ fun PlaylistDetailScreen(
         onBackPressed()
     }
 
-    val scrollState = rememberScrollState()
-    val alpha = if (scrollState.value > 100) 0f else (100 - scrollState.value) / 100f
+    val interactionSource = remember { MutableInteractionSource() }
 
     Column(
         modifier
             .fillMaxSize()
-            .verticalScroll(scrollState),
+            .verticalScroll(scrollState)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                bottomSheetCoroutineScope.launch {
+                    bottomSheetScaffoldState.bottomSheetState.hide()
+                }
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         PlaylistDetailScreenTopBar(
@@ -62,11 +104,12 @@ fun PlaylistDetailScreen(
             music = music,
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, bottom = 4.dp, top = 20.dp)
-                .alpha(alpha),
-            onClickBack = ::onBackPressed
+                .alpha(topBarVisibilityAlpha),
+            onClickBack = { onBackPressed() },
+            onClickMore = { bottomSheetCoroutineScope.launch { bottomSheetScaffoldState.bottomSheetState.partialExpand() } }
         )
 
-        Spacer(modifier = Modifier.height((40 * alpha).dp))
+        Spacer(modifier = Modifier.height((40 * topBarVisibilityAlpha).dp))
         music.imageDrawable?.let { image ->
             PosterView(
                 modifier = Modifier.size(180.dp, 180.dp),
@@ -95,6 +138,13 @@ fun PlaylistDetailScreen(
         )
         Spacer(modifier = Modifier.height(40.dp))
     }
+
+    PlaylistDetailScreenMorePanel(
+        scaffoldState = bottomSheetScaffoldState,
+        scope = bottomSheetCoroutineScope,
+        music = music,
+        (LocalConfiguration.current.screenHeightDp * 0.5).dp
+    )
 }
 
 

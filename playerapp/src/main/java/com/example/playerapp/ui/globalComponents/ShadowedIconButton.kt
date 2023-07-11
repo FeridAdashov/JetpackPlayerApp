@@ -45,6 +45,7 @@ fun ShadowedIconButton(
             contentAlignment = Alignment.Center
         ) {
             Icon(
+                modifier = Modifier.size(20.dp),
                 painter = painterResource(id = drawable),
                 contentDescription = null,
                 tint = tint
