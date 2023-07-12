@@ -13,10 +13,54 @@ import com.example.playerapp.ui.model.SocialNetwork
 
 object DataHelper {
     val recentlyPlayedMusicList = listOf(
-        Music("mega hit mix", imageDrawable = R.drawable.img_music_2),
-        Music("la bede - remi", imageDrawable = R.drawable.img_music_5),
-        Music("un x 100to", imageDrawable = R.drawable.img_music_6),
-        Music("orxan zeynalli", imageDrawable = R.drawable.img_music_7),
+        Music(
+            "Mega hit mix",
+            "Song | Six60",
+            imageDrawable = R.drawable.img_music_2,
+            category = MusicCategoryType.PODCAST
+        ),
+        Music(
+            "La bede - Remi",
+            "E song | Oliver Tree",
+            imageDrawable = R.drawable.img_music_5,
+            category = MusicCategoryType.EVENT
+        ),
+        Music(
+            "Un x 100to",
+            "Playlist | PlaylistM7",
+            imageDrawable = R.drawable.img_music_6,
+            category = MusicCategoryType.MADE_FOR_U
+        ),
+        Music(
+            "Orxan Zeynalli",
+            "Playlist | Spotify",
+            imageDrawable = R.drawable.img_music_7,
+            category = MusicCategoryType.NEW_RELEASES
+        ),
+        Music(
+            "Orxan Zeynalli",
+            "Playlist | Spotify",
+            imageDrawable = R.drawable.img_music_7,
+            category = MusicCategoryType.HINDI
+        ),
+        Music(
+            "Orxan Zeynalli",
+            "Playlist | Spotify",
+            imageDrawable = R.drawable.img_music_7,
+            category = MusicCategoryType.PUNJABI
+        ),
+        Music(
+            "Orxan Zeynalli",
+            "Playlist | Spotify",
+            imageDrawable = R.drawable.img_music_7,
+            category = MusicCategoryType.TAMIL
+        ),
+        Music(
+            "Orxan Zeynalli",
+            "Playlist | Spotify",
+            imageDrawable = R.drawable.img_music_7,
+            category = MusicCategoryType.TELUGU
+        ),
     )
 
     val events = listOf(

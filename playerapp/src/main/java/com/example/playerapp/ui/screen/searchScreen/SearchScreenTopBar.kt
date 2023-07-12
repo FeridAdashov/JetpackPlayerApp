@@ -1,6 +1,6 @@
 package com.example.playerapp.ui.screen.searchScreen
 
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,16 +20,17 @@ fun SearchScreenTopBar(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit = {},
 ) {
-    Row(
+    Box(
         modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
     ) {
         ShadowedIconButton(
             drawable = R.drawable.ic_back,
             onClick = { onClickBack.invoke() }
         )
         Text(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center),
             text = title,
             style = MaterialTheme.typography.headlineSmall,
             color = Color.White,

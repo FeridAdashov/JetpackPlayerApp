@@ -44,7 +44,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
 import com.example.playerapp.extension.navigateToSearchScreen
 import com.example.playerapp.ui.model.MusicCategory
-import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.navigation.NavigationScreens
 import com.example.playerapp.ui.theme.PrimaryLight
 import com.example.playerapp.ui.theme.White
@@ -91,7 +90,7 @@ fun SearchTabScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(DataHelper.musicCategories) {
-                CategoryWidget(it){
+                CategoryWidget(it) {
                     navController.navigateToSearchScreen(it.categoryType)
                 }
             }
