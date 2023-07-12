@@ -222,13 +222,12 @@ private fun SearchRoundedBox(
                             enter = fadeIn(),
                             exit = fadeOut()
                         ) {
-                            IconButton(onClick = {}, modifier = Modifier.size(20.dp)) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_close),
-                                    contentDescription = null,
-                                    tint = White
-                                )
-                            }
+                            Icon(
+                                modifier = Modifier.size(20.dp),
+                                painter = painterResource(id = R.drawable.ic_close),
+                                contentDescription = null,
+                                tint = White
+                            )
                         }
                     },
                     onValueChange = {
