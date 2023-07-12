@@ -4,5 +4,6 @@ data class Music(
     val title: String,
     val desc: String = "",
     val imageUrl: String? = null,
-    val imageDrawable: Int? = null
+    val imageDrawable: Int? = null,
+    val category: MusicCategoryType = MusicCategoryType.UNKNOWN
 )

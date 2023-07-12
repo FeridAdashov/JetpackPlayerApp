@@ -1,5 +1,6 @@
 package com.example.playerapp.ui.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -10,15 +11,18 @@ import com.example.playerapp.extension.fromJson
 import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_ALBUM_ARG
 import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_SOCIALS_ARG
 import com.example.playerapp.ui.constants.NavigationConstants.PLAYLIST_DETAILS_SCREEN_MUSIC_ARG
+import com.example.playerapp.ui.constants.NavigationConstants.SEARCH_SCREEN_CATEGORY_ARG
 import com.example.playerapp.ui.model.Album
 import com.example.playerapp.ui.model.Music
+import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.SocialNetwork
 import com.example.playerapp.ui.screen.LibraryScreen
 import com.example.playerapp.ui.screen.PremiumScreen
-import com.example.playerapp.ui.screen.SearchScreen
 import com.example.playerapp.ui.screen.aboutAlbumScreen.AlbumDetailScreen
 import com.example.playerapp.ui.screen.homeScreen.HomeScreen
 import com.example.playerapp.ui.screen.playlistDetailScreen.PlaylistDetailScreen
+import com.example.playerapp.ui.screen.searchScreen.SearchScreen
+import com.example.playerapp.ui.screen.searchTabScreen.SearchTabScreen
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -28,8 +32,8 @@ fun NavGraph(navController: NavHostController) {
         composable(route = NavigationScreens.Home.route) {
             HomeScreen(navController = navController)
         }
-        composable(route = NavigationScreens.Search.route) {
-            SearchScreen(navController)
+        composable(route = NavigationScreens.SearchTabScreen.route) {
+            SearchTabScreen(navController = navController)
         }
         composable(route = NavigationScreens.Library.route) {
             LibraryScreen(navController)
@@ -73,6 +77,24 @@ fun NavGraph(navController: NavHostController) {
                     navController = navController,
                 )
             }
+        }
+
+        composable(
+            route = "${NavigationScreens.Search.route}?$SEARCH_SCREEN_CATEGORY_ARG={$SEARCH_SCREEN_CATEGORY_ARG}",
+            arguments = listOf(
+                navArgument(SEARCH_SCREEN_CATEGORY_ARG) {
+                    type = NavType.StringType
+                    nullable = true
+                },
+            )
+        ) {
+            val category = it.arguments?.getString(SEARCH_SCREEN_CATEGORY_ARG)
+                ?.fromJson(MusicCategoryType::class.java)
+
+            SearchScreen(
+                category = category,
+                navController = navController,
+            )
         }
     }
 }

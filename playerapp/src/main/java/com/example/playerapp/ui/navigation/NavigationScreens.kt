@@ -9,8 +9,8 @@ sealed class NavigationScreens(val route: String, val title: String, val iconDra
         iconDrawable = R.drawable.ic_home
     )
 
-    object Search : NavigationScreens(
-        route = "search",
+    object SearchTabScreen : NavigationScreens(
+        route = "search_tab_screen",
         title = "Search",
         iconDrawable = R.drawable.ic_search
     )
@@ -35,5 +35,10 @@ sealed class NavigationScreens(val route: String, val title: String, val iconDra
     object AboutAlbum : NavigationScreens(
         route = "aboutAlbum",
         title = "AboutAlbum",
+    )
+
+    object Search : NavigationScreens(
+        route = "search",
+        title = "Search",
     )
 }

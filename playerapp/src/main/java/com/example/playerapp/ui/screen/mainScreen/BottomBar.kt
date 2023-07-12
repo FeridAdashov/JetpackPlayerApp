@@ -78,7 +78,7 @@ fun MenuBar(
 
     val screens = listOf(
         NavigationScreens.Home,
-        NavigationScreens.Search,
+        NavigationScreens.SearchTabScreen,
         NavigationScreens.Library,
         NavigationScreens.Premium,
     )
@@ -110,7 +110,7 @@ fun MenuBar(
                             NavigationScreens.Home -> viewModel.changeControllerVisibility(true)
                             NavigationScreens.Library -> viewModel.changeControllerVisibility(true)
                             NavigationScreens.Premium -> viewModel.changeControllerVisibility(false)
-                            NavigationScreens.Search -> viewModel.changeControllerVisibility(false)
+                            NavigationScreens.SearchTabScreen -> viewModel.changeControllerVisibility(false)
                             else -> {}
                         }
                     }

@@ -3,6 +3,8 @@ package com.example.playerapp.utils
 import com.example.playerapp.R
 import com.example.playerapp.ui.model.Album
 import com.example.playerapp.ui.model.Music
+import com.example.playerapp.ui.model.MusicCategory
+import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.MusicEvent
 import com.example.playerapp.ui.model.MusicEventType
 import com.example.playerapp.ui.model.MusicMoreMenu
@@ -65,5 +67,36 @@ object DataHelper {
         MusicMoreMenu.Share(MusicMoreMenuItem("Share", R.drawable.ic_share)),
         MusicMoreMenu.ShowCredits(MusicMoreMenuItem("Show credits", R.drawable.ic_user_add)),
         MusicMoreMenu.ShowSpotifyCode(MusicMoreMenuItem("Show spotify code", R.drawable.ic_sound)),
+    )
+
+    val musicCategories = listOf(
+        MusicCategory(MusicCategoryType.PODCAST, "Podcasts", R.drawable.img_podcast),
+        MusicCategory(MusicCategoryType.EVENT, "Live Events", R.drawable.img_live_event),
+        MusicCategory(MusicCategoryType.MADE_FOR_U, "Made for u", R.drawable.img_made_for_u),
+        MusicCategory(MusicCategoryType.NEW_RELEASES, "New releases", R.drawable.img_new_release),
+        MusicCategory(MusicCategoryType.HINDI, "Hidi", R.drawable.img_hindi),
+        MusicCategory(MusicCategoryType.PUNJABI, "Punjabi", R.drawable.img_punjabi),
+        MusicCategory(MusicCategoryType.TAMIL, "Tamil", R.drawable.img_tamil),
+        MusicCategory(MusicCategoryType.TELUGU, "Telugu", R.drawable.img_telugu),
+        MusicCategory(MusicCategoryType.CHARTS, "Charts", R.drawable.img_charts),
+        MusicCategory(MusicCategoryType.POP, "Pop", R.drawable.img_pop),
+        MusicCategory(MusicCategoryType.INDIE, "Indie", R.drawable.img_indie),
+        MusicCategory(MusicCategoryType.TRENDING, "Trending", R.drawable.img_trending),
+        MusicCategory(MusicCategoryType.LOVE, "Love", R.drawable.img_love),
+        MusicCategory(MusicCategoryType.DISCOVER, "Discover", R.drawable.img_discover),
+        MusicCategory(MusicCategoryType.RADIO, "Radio", R.drawable.img_radio),
+        MusicCategory(MusicCategoryType.MOOD, "Mood", R.drawable.img_mood),
+        MusicCategory(MusicCategoryType.PARTY, "Party", R.drawable.img_party),
+        MusicCategory(MusicCategoryType.DECADES, "Decades", R.drawable.img_decades),
+        MusicCategory(MusicCategoryType.DEVOTIONAL, "Devotional", R.drawable.img_devational),
+        MusicCategory(MusicCategoryType.HIP_HOP, "Hip-Hop", R.drawable.img_hip_hop),
+        MusicCategory(
+            MusicCategoryType.DANCE_ELECTRIC,
+            "Dance / Electric",
+            R.drawable.img_dance_electric
+        ),
+        MusicCategory(MusicCategoryType.STUDENT, "Student", R.drawable.img_student),
+        MusicCategory(MusicCategoryType.CHILL, "Chill", R.drawable.img_chill),
+        MusicCategory(MusicCategoryType.GAMING, "Gaming", R.drawable.img_gaming),
     )
 }
