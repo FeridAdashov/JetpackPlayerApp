@@ -80,7 +80,7 @@ fun ExtraSuggestionView(modifier: Modifier = Modifier, music: Music) {
 fun ExtraSuggestionViewPreview() {
     ExtraSuggestionView(
         music = Music(
-            "adam french, bella mt., twiceyoung and",
+            "adam french, bella mt., twiceyoung and","",
             imageDrawable = R.drawable.img_music_5
         ),
     )

@@ -92,5 +92,5 @@ fun PlaylistDetailScreenLyrics(modifier: Modifier = Modifier, music: Music) {
 @Preview
 @Composable
 private fun PlaylistDetailScreenLyricsPreview() {
-    PlaylistDetailScreenLyrics(music = Music("mega hit mix"))
+    PlaylistDetailScreenLyrics(music = Music("mega hit mix","",))
 }

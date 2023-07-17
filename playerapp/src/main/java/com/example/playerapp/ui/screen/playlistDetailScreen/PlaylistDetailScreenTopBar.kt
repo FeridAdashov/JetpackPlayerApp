@@ -68,6 +68,6 @@ fun PlaylistDetailScreenTopBar(
 private fun PlaylistDetailScreenTopBarPreview() {
     PlaylistDetailScreenTopBar(
         stringResource(id = R.string.playing_from_playlist),
-        music = Music("Mega hit mix")
+        music = Music("Mega hit mix","",)
     )
 }

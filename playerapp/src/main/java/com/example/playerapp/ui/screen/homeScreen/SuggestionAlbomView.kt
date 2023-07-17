@@ -99,7 +99,7 @@ fun SuggestionAlbumView(
 fun SuggestionAlbumViewPreview() {
     SuggestionAlbumView(
         music = Music(
-            "daily mix 1",
+            "daily mix 1","",
             desc = "six60, mitch james, tiki taane and more",
             imageDrawable = R.drawable.img_music_5
         ),

@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -34,18 +35,19 @@ import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.navigation.NavigationScreens
 import com.example.playerapp.ui.theme.AppBarIconSelected
 import com.example.playerapp.ui.theme.AppBarIconUnselected
-import com.example.playerapp.ui.theme.White
 import com.example.playerapp.ui.theme.Background
-import com.example.playerapp.utils.appBarGradient
+import com.example.playerapp.ui.theme.White
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.utils.appBarGradient
 
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun BottomBar(
+    navController: NavHostController,
+    mainViewModel: MainViewModel = hiltViewModel(),
+) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-
-    val viewModel: MainViewModel = viewModel()
 
     Box(
         modifier = Modifier
@@ -56,8 +58,10 @@ fun BottomBar(navController: NavHostController) {
             .padding(horizontal = 10.dp, vertical = 16.dp)
     ) {
         Column {
-            if (viewModel.playerControllerVisibility)
-                PlayerControllerView(music = Music("don’t forget your roots - 2021"))
+            if (mainViewModel.playerControllerVisibility)
+                PlayerControllerView(
+                    music = Music("don’t forget your roots - 2021","",)
+                )
             MenuBar(
                 modifier = Modifier.padding(top = 10.dp, start = 6.dp, end = 6.dp),
                 navController = navController,
@@ -110,7 +114,10 @@ fun MenuBar(
                             NavigationScreens.Home -> viewModel.changeControllerVisibility(true)
                             NavigationScreens.Library -> viewModel.changeControllerVisibility(true)
                             NavigationScreens.Premium -> viewModel.changeControllerVisibility(false)
-                            NavigationScreens.SearchTabScreen -> viewModel.changeControllerVisibility(false)
+                            NavigationScreens.SearchTabScreen -> viewModel.changeControllerVisibility(
+                                true
+                            )
+
                             else -> {}
                         }
                     }

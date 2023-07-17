@@ -29,20 +29,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.playerapp.R
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.theme.AppBarIconUnselected
 import com.example.playerapp.ui.theme.Background
 import com.example.playerapp.ui.theme.Blue
+import com.example.playerapp.ui.viewModel.MainViewModel
 
 
 @Composable
-fun PlayerControllerView(modifier: Modifier = Modifier, music: Music) {
+fun PlayerControllerView(
+    modifier: Modifier = Modifier,
+    music: Music,
+    mainViewModel: MainViewModel = hiltViewModel(),
+) {
+    val appContext = LocalContext.current.applicationContext
+
     var currentPosition by remember { mutableFloatStateOf(20f) }
     val progress by animateFloatAsState(targetValue = currentPosition)
 
@@ -70,9 +79,21 @@ fun PlayerControllerView(modifier: Modifier = Modifier, music: Music) {
                 overflow = TextOverflow.Ellipsis
             )
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                ControllerIcon(Modifier, R.drawable.ic_pause, R.string.pause, true) {}
-                ControllerIcon(Modifier, R.drawable.ic_heart, R.string.love, false) {}
+                ControllerIcon(
+                    Modifier, R.drawable.ic_pause, R.string.pause, true
+                ) {
+//                    mainViewModel.playerViewModel.pause(appContext)
+                }
                 ControllerIcon(Modifier, R.drawable.ic_volume, R.string.volume, false) {}
+                ControllerIcon(
+                    Modifier,
+                    R.drawable.ic_close,
+                    R.string.close_player,
+                    false
+                ) {
+//                    mainViewModel.playerViewModel.stop(appContext)
+                    mainViewModel.changeControllerVisibility(false)
+                }
             }
         }
         Slider(
@@ -113,5 +134,8 @@ fun ControllerIcon(
 @Preview
 @Composable
 private fun PlayerControllerViewOverview() {
-    PlayerControllerView(music = Music(title = "Don’t forget your roots - 2021"))
+    PlayerControllerView(
+        music = Music(title = "Don’t forget your roots - 2021", ""),
+        mainViewModel = MainViewModel()
+    )
 }

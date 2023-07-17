@@ -1,6 +1,7 @@
 package com.example.playerapp.ui.screen.homeScreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -24,9 +25,13 @@ import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.theme.TitleGray
 
 @Composable
-fun RecentlyPlayedView(modifier: Modifier = Modifier, music: Music) {
+fun RecentlyPlayedView(modifier: Modifier = Modifier, music: Music, onClick: () -> Unit = {}) {
     ShadowedGradientRoundedContainer(
-        modifier = modifier.width(110.dp),
+        modifier = modifier
+            .width(110.dp)
+            .clickable {
+                onClick.invoke()
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         music.imageDrawable?.let { image ->
@@ -54,5 +59,10 @@ fun RecentlyPlayedView(modifier: Modifier = Modifier, music: Music) {
 @Preview
 @Composable
 private fun RecentlyPlayedViewPreview() {
-    RecentlyPlayedView(music = Music("mega hit mix", imageDrawable = R.drawable.img_music_5))
+    RecentlyPlayedView(
+        music = Music(
+            "mega hit mix", "",
+            imageDrawable = R.drawable.img_music_5
+        )
+    )
 }

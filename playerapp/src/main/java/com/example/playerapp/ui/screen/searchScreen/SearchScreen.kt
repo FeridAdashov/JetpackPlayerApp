@@ -5,7 +5,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,12 +59,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.theme.White
+import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.utils.DataHelper
 import com.example.playerapp.utils.IconGradient
 
@@ -70,6 +75,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     category: MusicCategoryType? = null,
+    mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val focusManager = LocalFocusManager.current
 
@@ -79,6 +85,17 @@ fun SearchScreen(
     val searchedList = remember {
         mutableStateOf(if (category == null) DataHelper.recentlyPlayedMusicList
         else DataHelper.recentlyPlayedMusicList.filter { it.category == category })
+    }
+
+    LaunchedEffect(Unit) {
+        mainViewModel.changeControllerVisibility(false)
+        mainViewModel.changeBottomBarVisibility(false)
+    }
+
+    fun onBackPressed() {
+        mainViewModel.changeControllerVisibility(true)
+        mainViewModel.changeBottomBarVisibility(true)
+        navController.popBackStack()
     }
 
     Column(
@@ -97,9 +114,9 @@ fun SearchScreen(
                 .padding(start = 16.dp, end = 16.dp, top = 20.dp)
                 .alpha(alpha)
         ) {
-            navController.popBackStack()
+            onBackPressed()
         }
-        SearchRoundedBox(category = category) {
+        SearchRoundedBoxTextField(category = category) {
             searchedList.value =
                 DataHelper.recentlyPlayedMusicList.filter { m -> m.title.contains(it, true) }
         }
@@ -121,7 +138,9 @@ fun SearchScreen(
 @Composable
 private fun SearchItemView(modifier: Modifier = Modifier, music: Music) {
     Row(
-        modifier = modifier, verticalAlignment = Alignment.CenterVertically
+        modifier = modifier.clickable(indication = null,
+            interactionSource = remember { MutableInteractionSource() }) { },
+        verticalAlignment = Alignment.CenterVertically
     ) {
         music.imageDrawable?.let { img ->
             Image(
@@ -160,7 +179,7 @@ private fun SearchItemView(modifier: Modifier = Modifier, music: Music) {
 }
 
 @Composable
-private fun SearchRoundedBox(
+private fun SearchRoundedBoxTextField(
     modifier: Modifier = Modifier,
     category: MusicCategoryType? = null,
     onType: (String) -> Unit
@@ -222,12 +241,19 @@ private fun SearchRoundedBox(
                             enter = fadeIn(),
                             exit = fadeOut()
                         ) {
-                            Icon(
-                                modifier = Modifier.size(20.dp),
-                                painter = painterResource(id = R.drawable.ic_close),
-                                contentDescription = null,
-                                tint = White
-                            )
+                            IconButton(
+                                onClick = {
+                                    text = TextFieldValue()
+                                    onType.invoke(text.text)
+                                },
+                                modifier = Modifier.size(20.dp)
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_close),
+                                    contentDescription = null,
+                                    tint = White
+                                )
+                            }
                         }
                     },
                     onValueChange = {
@@ -243,6 +269,6 @@ private fun SearchRoundedBox(
 @Preview
 @Composable
 private fun SearchScreenPreview() {
-    SearchScreen()
+    SearchScreen(mainViewModel = MainViewModel())
 }
 

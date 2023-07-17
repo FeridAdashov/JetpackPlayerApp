@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
@@ -25,12 +26,14 @@ import com.example.playerapp.extension.navigateToPlaylistDetailsScreen
 import com.example.playerapp.ui.theme.Cyan
 import com.example.playerapp.ui.theme.DarkYellow
 import com.example.playerapp.ui.theme.Pink
+import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.utils.DataHelper
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    mainViewModel: MainViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
     val alpha = if (scrollState.value > 100) 0f else (100 - scrollState.value) / 100f
@@ -58,7 +61,10 @@ fun HomeScreen(
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
         ) {
             items(DataHelper.recentlyPlayedMusicList) {
-                RecentlyPlayedView(music = it)
+                RecentlyPlayedView(music = it) {
+//                    playerVM.start(appContext, it)
+                    mainViewModel.changeControllerVisibility(true)
+                }
             }
         }
 
@@ -106,6 +112,6 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(mainViewModel = MainViewModel())
 }
 

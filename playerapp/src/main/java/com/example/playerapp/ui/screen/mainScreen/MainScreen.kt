@@ -9,17 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.ui.navigation.NavGraph
 import com.example.playerapp.ui.theme.PlayerAppTheme
-import com.example.playerapp.utils.screenBackGradient
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.utils.screenBackGradient
 
 
 @Composable
-fun MainScreen() {
-    val viewModel: MainViewModel = hiltViewModel()
+fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
     val navController = rememberNavController()
 
     Box(
@@ -44,6 +42,6 @@ fun MainScreen() {
 @Composable
 fun HomeScreenScreenPreview() {
     PlayerAppTheme(dynamicColor = false) {
-        MainScreen()
+        MainScreen(MainViewModel())
     }
 }
