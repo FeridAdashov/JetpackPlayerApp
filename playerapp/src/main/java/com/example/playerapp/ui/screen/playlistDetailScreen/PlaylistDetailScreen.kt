@@ -40,6 +40,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
 import com.example.playerapp.utils.DataHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -49,7 +50,8 @@ import kotlinx.coroutines.launch
 fun PlaylistDetailScreen(
     music: Music,
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    mediaViewModel: SimpleMediaViewModel,
 ) {
     val mainViewModel: MainViewModel = hiltViewModel()
 
@@ -118,7 +120,8 @@ fun PlaylistDetailScreen(
         }
         Spacer(modifier = Modifier.height(40.dp))
         PlaylistDetailScreenMusicController(
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
+            mediaViewModel = mediaViewModel
         )
         PlaylistDetailScreenLyrics(
             modifier = Modifier.padding(
@@ -148,8 +151,8 @@ fun PlaylistDetailScreen(
 }
 
 
-@Preview
-@Composable
-private fun PlaylistDetailScreenPreview() {
-    PlaylistDetailScreen(music = Music("mega hit mix", "",imageDrawable = R.drawable.img_poster))
-}
+//@Preview
+//@Composable
+//private fun PlaylistDetailScreenPreview() {
+//    PlaylistDetailScreen(music = Music("mega hit mix", "",imageDrawable = R.drawable.img_poster))
+//}

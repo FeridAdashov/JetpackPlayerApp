@@ -1,5 +1,7 @@
 package com.example.playerapp.ui.theme
 
+import androidx.compose.material3.SliderDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val PrimaryLight = Color(0xFF7F8489)
@@ -33,3 +35,11 @@ val BlueButtonGradientEnd = Color(0xFF11A8FD)
 val PrimaryDark = Color(0xFF7F8489)
 val SecondaryDark = Color(0xFF1C1F22)
 val GrayDark = Color(0xFF282C30)
+
+@Composable
+fun playerSliderColors() = SliderDefaults.colors(
+    activeTrackColor = Blue,
+    activeTickColor = Blue,
+    thumbColor = Blue,
+    inactiveTrackColor = Background
+)

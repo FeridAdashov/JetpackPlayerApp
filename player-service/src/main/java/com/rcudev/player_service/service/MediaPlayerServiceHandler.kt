@@ -36,8 +36,8 @@ class SimpleMediaServiceHandler @Inject constructor(
 
     suspend fun onPlayerEvent(playerEvent: PlayerEvent) {
         when (playerEvent) {
-            PlayerEvent.Backward -> player.seekBack()
-            PlayerEvent.Forward -> player.seekForward()
+            PlayerEvent.Previous -> player.seekToPrevious()
+            PlayerEvent.Next -> player.seekToNext()
             PlayerEvent.Play -> {
                 player.play()
                 _simpleMediaState.value = SimpleMediaState.Playing(isPlaying = true)
@@ -103,8 +103,8 @@ class SimpleMediaServiceHandler @Inject constructor(
 sealed class PlayerEvent {
     object Play : PlayerEvent()
     object Pause : PlayerEvent()
-    object Backward : PlayerEvent()
-    object Forward : PlayerEvent()
+    object Previous : PlayerEvent()
+    object Next : PlayerEvent()
     object Stop : PlayerEvent()
     data class UpdateProgress(val newProgress: Float) : PlayerEvent()
 }

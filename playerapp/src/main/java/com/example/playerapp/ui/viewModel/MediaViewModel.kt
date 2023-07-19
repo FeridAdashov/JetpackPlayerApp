@@ -77,8 +77,8 @@ class SimpleMediaViewModel @Inject constructor(
 
     fun onUIEvent(uiEvent: UIEvent) = viewModelScope.launch {
         when (uiEvent) {
-            UIEvent.Backward -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Backward)
-            UIEvent.Forward -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Forward)
+            UIEvent.Previous -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Previous)
+            UIEvent.Next -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Next)
             UIEvent.Play -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Play)
             UIEvent.Pause -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Pause)
             UIEvent.Stop -> simpleMediaServiceHandler.onPlayerEvent(PlayerEvent.Stop)
@@ -144,8 +144,8 @@ sealed class UIEvent {
     object Play : UIEvent()
     object Pause : UIEvent()
     object Stop : UIEvent()
-    object Backward : UIEvent()
-    object Forward : UIEvent()
+    object Previous : UIEvent()
+    object Next : UIEvent()
     data class UpdateProgress(val newProgress: Float) : UIEvent()
 }
 

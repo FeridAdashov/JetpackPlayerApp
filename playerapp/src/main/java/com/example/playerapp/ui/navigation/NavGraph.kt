@@ -51,7 +51,8 @@ fun NavGraph(navController: NavHostController, mediaViewModel: SimpleMediaViewMo
                 val music = jsonString.fromJson(Music::class.java)
                 PlaylistDetailScreen(
                     navController = navController,
-                    music = music
+                    music = music,
+                    mediaViewModel = mediaViewModel,
                 )
             }
         }

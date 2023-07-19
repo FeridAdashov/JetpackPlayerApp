@@ -61,7 +61,7 @@ fun BottomBar(
     ) {
         Column {
             if (mainViewModel.playerControllerVisibility)
-                PlayerControllerView(
+                MainPlayerControllerView(
                     music = Music("don’t forget your roots - 2021", ""),
                     mediaViewModel = mediaViewModel
                 )
