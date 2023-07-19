@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.playerapp"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':player-service')
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
@@ -74,6 +75,13 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.30.1"
 
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Media3
+    implementation("androidx.media3:media3-session:1.1.0")
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.1'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

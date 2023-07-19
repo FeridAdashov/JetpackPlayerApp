@@ -19,4 +19,6 @@
     <string name="search_hint">What do you want to listen to?</string>
     <string name="browse_all">Browse all</string>
     <string name="close_player">Close player</string>
+    <string name="play">Play</string>
+    <string name="play_all">Play all</string>
 </resources>

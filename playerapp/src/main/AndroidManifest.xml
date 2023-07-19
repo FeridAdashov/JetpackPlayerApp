@@ -26,12 +26,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".services.PlayerService"
-            android:foregroundServiceType="mediaPlayback" />
-
-        <receiver
-            android:name=".services.ActionReceiver" />
-
+        <service android:name="com.rcudev.player_service.service.MediaPlayerService"/>
     </application>
 </manifest>

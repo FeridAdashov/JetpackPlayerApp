@@ -7,16 +7,27 @@ import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.SocialNetwork
 import com.example.playerapp.ui.navigation.NavigationScreens
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 fun NavHostController.navigateToPlaylistDetailsScreen(music: Music) {
-    navigate("${NavigationScreens.PlaylistDetails.route}/${music.toJson()}")
+    val m = music.copy(url = URLEncoder.encode(music.url, StandardCharsets.UTF_8.toString()))
+    navigate("${NavigationScreens.PlaylistDetails.route}/${m.toJson()}")
 }
 
 fun NavHostController.navigateToAboutAlbumScreen(
     album: Album,
     socialNetworks: List<SocialNetwork>? = null,
 ) {
-    var route = "${NavigationScreens.AboutAlbum.route}/${album.toJson()}"
+    val a = album.copy(
+        artistUrl = URLEncoder.encode(
+            album.artistUrl,
+            StandardCharsets.UTF_8.toString()
+        ),
+        posterUrl = URLEncoder.encode(album.posterUrl, StandardCharsets.UTF_8.toString())
+    )
+
+    var route = "${NavigationScreens.AboutAlbum.route}/${a.toJson()}"
 
     if (!socialNetworks.isNullOrEmpty())
         route += "/${socialNetworks.toJson()}"

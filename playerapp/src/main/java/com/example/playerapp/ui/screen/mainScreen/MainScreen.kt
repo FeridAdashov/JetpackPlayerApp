@@ -7,17 +7,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.ui.navigation.NavGraph
-import com.example.playerapp.ui.theme.PlayerAppTheme
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
 import com.example.playerapp.utils.screenBackGradient
 
-
 @Composable
-fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel(),
+    mediaViewModel: SimpleMediaViewModel
+) {
     val navController = rememberNavController()
 
     Box(
@@ -28,20 +29,20 @@ fun MainScreen(viewModel: MainViewModel = hiltViewModel()) {
             containerColor = Color.Transparent,
             bottomBar = {
                 if (viewModel.bottomBarVisibility)
-                    BottomBar(navController = navController)
+                    BottomBar(navController = navController, mediaViewModel = mediaViewModel)
             },
         ) { padding ->
             Box(modifier = Modifier.padding(padding)) {
-                NavGraph(navController = navController)
+                NavGraph(navController = navController, mediaViewModel = mediaViewModel)
             }
         }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun HomeScreenScreenPreview() {
-    PlayerAppTheme(dynamicColor = false) {
-        MainScreen(MainViewModel())
-    }
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun HomeScreenScreenPreview() {
+//    PlayerAppTheme(dynamicColor = false) {
+//        MainScreen(MainViewModel(), simpleMediaViewModel)
+//    }
+//}

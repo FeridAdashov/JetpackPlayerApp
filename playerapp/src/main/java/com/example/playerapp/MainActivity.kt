@@ -8,16 +8,20 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import com.example.playerapp.ui.screen.mainScreen.MainScreen
 import com.example.playerapp.ui.theme.PlayerAppTheme
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel: SimpleMediaViewModel by viewModels()
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
@@ -34,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             PlayerAppTheme(dynamicColor = false) {
-                MainScreen()
+                MainScreen(mediaViewModel = viewModel)
             }
         }
     }
@@ -67,10 +71,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PlayerAppTheme(dynamicColor = false) {
-        MainScreen(MainViewModel())
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    PlayerAppTheme(dynamicColor = false) {
+//        MainScreen(MainViewModel(), viewModel)
+//    }
+//}

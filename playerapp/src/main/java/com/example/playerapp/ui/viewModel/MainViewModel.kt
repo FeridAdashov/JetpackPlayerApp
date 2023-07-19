@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor() : ViewModel() {
 
-    var playerControllerVisibility by mutableStateOf(true)
+    var playerControllerVisibility by mutableStateOf(false)
         private set
 
     var bottomBarVisibility by mutableStateOf(true)

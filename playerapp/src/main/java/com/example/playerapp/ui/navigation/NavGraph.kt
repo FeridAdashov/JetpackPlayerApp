@@ -1,6 +1,5 @@
 package com.example.playerapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -23,14 +22,15 @@ import com.example.playerapp.ui.screen.homeScreen.HomeScreen
 import com.example.playerapp.ui.screen.playlistDetailScreen.PlaylistDetailScreen
 import com.example.playerapp.ui.screen.searchScreen.SearchScreen
 import com.example.playerapp.ui.screen.searchTabScreen.SearchTabScreen
+import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, mediaViewModel: SimpleMediaViewModel) {
     NavHost(navController = navController, startDestination = NavigationScreens.Home.route) {
         composable(route = NavigationScreens.Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen(navController = navController, mediaViewModel = mediaViewModel)
         }
         composable(route = NavigationScreens.SearchTabScreen.route) {
             SearchTabScreen(navController = navController)

@@ -38,6 +38,7 @@ import com.example.playerapp.ui.theme.AppBarIconUnselected
 import com.example.playerapp.ui.theme.Background
 import com.example.playerapp.ui.theme.White
 import com.example.playerapp.ui.viewModel.MainViewModel
+import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
 import com.example.playerapp.utils.appBarGradient
 
 
@@ -45,6 +46,7 @@ import com.example.playerapp.utils.appBarGradient
 fun BottomBar(
     navController: NavHostController,
     mainViewModel: MainViewModel = hiltViewModel(),
+    mediaViewModel: SimpleMediaViewModel,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -60,7 +62,8 @@ fun BottomBar(
         Column {
             if (mainViewModel.playerControllerVisibility)
                 PlayerControllerView(
-                    music = Music("don’t forget your roots - 2021","",)
+                    music = Music("don’t forget your roots - 2021", ""),
+                    mediaViewModel = mediaViewModel
                 )
             MenuBar(
                 modifier = Modifier.padding(top = 10.dp, start = 6.dp, end = 6.dp),
