@@ -35,35 +35,35 @@ object DataHelper {
             category = MusicCategoryType.MADE_FOR_U
         ),
         Music(
-            "Orxan Zeynalli",
+            "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
             imageDrawable = R.drawable.img_music_7,
             category = MusicCategoryType.NEW_RELEASES
         ),
         Music(
-            "Orxan Zeynalli",
+            "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
             imageDrawable = R.drawable.img_music_7,
             category = MusicCategoryType.HINDI
         ),
         Music(
-            "Orxan Zeynalli",
+            "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
             imageDrawable = R.drawable.img_music_7,
             category = MusicCategoryType.PUNJABI
         ),
         Music(
-            "Orxan Zeynalli",
+            "Glenn Danzig",
             "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_500KB_MP3.mp3",
             "Playlist | Spotify",
             imageDrawable = R.drawable.img_music_7,
             category = MusicCategoryType.TAMIL
         ),
         Music(
-            "Orxan Zeynalli",
+            "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
             imageDrawable = R.drawable.img_music_7,

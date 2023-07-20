@@ -21,10 +21,10 @@ fun NavHostController.navigateToAboutAlbumScreen(
 ) {
     val a = album.copy(
         artistUrl = URLEncoder.encode(
-            album.artistUrl,
+            album.artistUrl ?: "",
             StandardCharsets.UTF_8.toString()
         ),
-        posterUrl = URLEncoder.encode(album.posterUrl, StandardCharsets.UTF_8.toString())
+        posterUrl = URLEncoder.encode(album.posterUrl ?: "", StandardCharsets.UTF_8.toString())
     )
 
     var route = "${NavigationScreens.AboutAlbum.route}/${a.toJson()}"
