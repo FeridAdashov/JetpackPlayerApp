@@ -2,7 +2,7 @@ package com.example.playerapp.ui.model
 
 
 sealed class MusicMoreMenu(val musicMoreMenuItem: MusicMoreMenuItem) {
-    class AddFree(item: MusicMoreMenuItem) : MusicMoreMenu(item)
+    class Schedule(item: MusicMoreMenuItem) : MusicMoreMenu(item)
     class Like(item: MusicMoreMenuItem) : MusicMoreMenu(item)
     class Hide(item: MusicMoreMenuItem) : MusicMoreMenu(item)
     class AddToPlaylist(item: MusicMoreMenuItem) : MusicMoreMenu(item)

@@ -102,8 +102,8 @@ object DataHelper {
     )
 
     val musicMoreMenus = listOf(
-        MusicMoreMenu.AddFree(
-            MusicMoreMenuItem("Listen to music ad-free", R.drawable.ic_diamonds)
+        MusicMoreMenu.Schedule(
+            MusicMoreMenuItem("Schedule", R.drawable.ic_clock)
         ),
         MusicMoreMenu.Like(MusicMoreMenuItem("Like", R.drawable.ic_heart)),
         MusicMoreMenu.Hide(MusicMoreMenuItem("Hide this song", R.drawable.ic_minus_rounded)),

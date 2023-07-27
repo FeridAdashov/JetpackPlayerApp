@@ -21,4 +21,7 @@
     <string name="close_player">Close player</string>
     <string name="play">Play</string>
     <string name="play_all">Play all</string>
+    <string name="schedule">Schedule</string>
+    <string name="cancel">Cancel</string>
+    <string name="click_to_select_time">Click to select time</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.playerapp.ui.screen.playlistDetailScreen
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,6 +29,7 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -46,7 +48,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playerapp.R
+import com.example.playerapp.alarmManager.AlarmItem
+import com.example.playerapp.alarmManager.AndroidAlarmScheduler
 import com.example.playerapp.ui.globalComponents.ShadowedIconButton
+import com.example.playerapp.ui.globalComponents.ShowAlarmSchedulerDialog
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicMoreMenu
 import com.example.playerapp.ui.theme.GrayLight
@@ -66,6 +71,16 @@ fun PlaylistDetailScreenMorePanel(
 ) {
     val context = LocalContext.current
 
+    val alarmScheduler = remember {
+        AndroidAlarmScheduler(context = context)
+    }
+
+    val openDialog = remember { mutableStateOf(false) }
+
+    BackHandler {
+        openDialog.value = false
+    }
+
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetPeekHeight = partialExpandHeight,
@@ -83,13 +98,23 @@ fun PlaylistDetailScreenMorePanel(
             ) {
                 items(DataHelper.musicMoreMenus) { menu ->
                     MusicMorePanelMenuItem(musicMoreMenu = menu) {
-                        Toast.makeText(context, it.musicMoreMenuItem.title, Toast.LENGTH_SHORT)
-                            .show()
+                        if (it is MusicMoreMenu.Schedule) {
+                            openDialog.value = true
+                        } else
+                            Toast.makeText(context, it.musicMoreMenuItem.title, Toast.LENGTH_SHORT)
+                                .show()
                     }
                 }
             }
         },
     ) {}
+
+    if (openDialog.value)
+        ShowAlarmSchedulerDialog(onDismiss = { openDialog.value = false }) { time, message ->
+            alarmScheduler.schedule(
+                AlarmItem(time, message, music.url)
+            )
+        }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
