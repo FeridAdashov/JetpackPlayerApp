@@ -15,8 +15,8 @@ import com.example.playerapp.ui.model.Album
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.SocialNetwork
-import com.example.playerapp.ui.screen.LibraryScreen
-import com.example.playerapp.ui.screen.PremiumScreen
+import com.example.playerapp.ui.screen.libraryScreen.LibraryScreen
+import com.example.playerapp.ui.screen.premiumScreen.PremiumScreen
 import com.example.playerapp.ui.screen.aboutAlbumScreen.AlbumDetailScreen
 import com.example.playerapp.ui.screen.homeScreen.HomeScreen
 import com.example.playerapp.ui.screen.playlistDetailScreen.PlaylistDetailScreen

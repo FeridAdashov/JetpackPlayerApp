@@ -1,4 +1,4 @@
-package com.example.playerapp.ui.screen
+package com.example.playerapp.ui.screen.libraryScreen
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -7,13 +7,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun PremiumScreen(navController: NavHostController = rememberNavController()) {
+fun LibraryScreen(navController: NavHostController = rememberNavController()) {
     Text(text = "")
 }
 
 @Preview
 @Composable
-private fun PremiumScreenScreenPreview() {
-    PremiumScreen()
+private fun LibraryScreenPreview() {
+    LibraryScreen()
 }
 
