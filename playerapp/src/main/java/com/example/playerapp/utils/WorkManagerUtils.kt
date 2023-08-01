@@ -18,6 +18,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.playerapp.workManager.FileDownloadWorker
 import com.example.playerapp.workManager.FileForDownload
+import com.example.playerapp.workManager.WorkManagerStatusListener
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
@@ -117,12 +118,7 @@ object WorkManagerUtils {
         file: FileForDownload,
         context: Context,
         lifecycleOwner: LifecycleOwner,
-        success: (uri: String, mimeType: String) -> Unit,
-        failed: (String) -> Unit,
-        running: () -> Unit,
-        enqueued: (String) -> Unit,
-        blocked: (String) -> Unit,
-        canceled: (String) -> Unit,
+        statusListener: WorkManagerStatusListener,
     ) {
         val data = Data.Builder()
 
@@ -154,7 +150,7 @@ object WorkManagerUtils {
                 info?.let {
                     when (it.state) {
                         WorkInfo.State.SUCCEEDED -> {
-                            success(
+                            statusListener.success(
                                 it.outputData.getString(FileDownloadWorker.FileParams.KEY_FILE_URI)
                                     ?: "",
                                 it.outputData.getString(FileDownloadWorker.FileParams.KEY_FILE_TYPE)
@@ -162,11 +158,11 @@ object WorkManagerUtils {
                             )
                         }
 
-                        WorkInfo.State.FAILED -> failed("Failed!")
-                        WorkInfo.State.RUNNING -> running()
-                        WorkInfo.State.ENQUEUED -> enqueued("Started...")
-                        WorkInfo.State.BLOCKED -> blocked("Blocked!")
-                        WorkInfo.State.CANCELLED -> canceled("Canceled!")
+                        WorkInfo.State.FAILED -> statusListener.failed("Failed!")
+                        WorkInfo.State.RUNNING -> statusListener.running()
+                        WorkInfo.State.ENQUEUED -> statusListener.enqueued("Started...")
+                        WorkInfo.State.BLOCKED -> statusListener.blocked("Blocked!")
+                        WorkInfo.State.CANCELLED -> statusListener.canceled("Canceled!")
                     }
                 }
             }

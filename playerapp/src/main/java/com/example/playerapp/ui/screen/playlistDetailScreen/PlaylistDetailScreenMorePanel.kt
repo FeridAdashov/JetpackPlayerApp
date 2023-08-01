@@ -63,6 +63,7 @@ import com.example.playerapp.ui.theme.SecondaryLight
 import com.example.playerapp.utils.DataHelper
 import com.example.playerapp.utils.WorkManagerUtils
 import com.example.playerapp.workManager.FileForDownload
+import com.example.playerapp.workManager.WorkManagerStatusListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -83,6 +84,52 @@ fun PlaylistDetailScreenMorePanel(
 
     val openDialog = remember { mutableStateOf(false) }
     val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+
+    fun downloadMusic(music: Music) {
+        WorkManagerUtils.startDownloadingFileWork(
+            FileForDownload(
+                id = music.hashCode().toString(),
+                name = music.title,
+                type = "MP3",
+                url = music.url,
+                downloadedUri = null
+            ),
+            context,
+            lifecycleOwner.value,
+            statusListener = object : WorkManagerStatusListener {
+                override fun success(uri: String, mimeType: String) {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setDataAndType(uri.toUri(), mimeType)
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    try {
+                        context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        Toast.makeText(context, "Can't open file", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun failed(message: String) {
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun running() {
+                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun enqueued(message: String) {
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun blocked(message: String) {
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+
+                override fun canceled(message: String) {
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            },
+        )
+    }
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -107,47 +154,7 @@ fun PlaylistDetailScreenMorePanel(
                             }
 
                             is MusicMoreMenu.Download -> {
-                                WorkManagerUtils.startDownloadingFileWork(
-                                    FileForDownload(
-                                        id = music.hashCode().toString(),
-                                        name = music.title,
-                                        type = "MP3",
-                                        url = music.url,
-                                        downloadedUri = null
-                                    ),
-                                    context,
-                                    lifecycleOwner.value,
-                                    { uri, mimeType ->
-                                        val intent = Intent(Intent.ACTION_VIEW)
-                                        intent.setDataAndType(uri.toUri(), mimeType)
-                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                        try {
-                                            context.startActivity(intent)
-                                        } catch (e: ActivityNotFoundException) {
-                                            Toast.makeText(
-                                                context,
-                                                "Can't open file",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    },
-                                    {
-                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                                    },
-                                    {
-                                        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT)
-                                            .show()
-                                    },
-                                    {
-                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                                    },
-                                    {
-                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                                    },
-                                    {
-                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                                    }
-                                )
+                                downloadMusic(music)
                             }
 
                             else -> Toast.makeText(
