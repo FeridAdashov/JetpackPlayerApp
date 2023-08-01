@@ -57,9 +57,7 @@ class FileDownloadWorker(
         } catch (e: Exception) {
             e.printStackTrace()
             createNotification(buildResultNotification(false))
-            Result.failure()
-        } finally {
-//            NotificationManagerCompat.from(context).cancel(NotificationConstants.NOTIFICATION_ID)
+            return Result.failure()
         }
 
         return if (uri != null) {
