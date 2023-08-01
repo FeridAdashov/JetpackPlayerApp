@@ -17,8 +17,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.example.playerapp.workManager.FileDownloadWorker
-import com.example.playerapp.workManager.FileForDownload
-import com.example.playerapp.workManager.WorkManagerStatusListener
+import com.example.playerapp.ui.model.FileForDownload
+import com.example.playerapp.ui.listeners.WorkManagerStatusListener
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit
 
 
 object WorkManagerUtils {
-    fun downloadFileAndReturnUri(
+    fun downloadFile(
         fileName: String,
         fileType: String,
         fileUrl: String,

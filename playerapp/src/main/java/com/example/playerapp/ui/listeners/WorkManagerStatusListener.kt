@@ -1,4 +1,4 @@
-package com.example.playerapp.workManager
+package com.example.playerapp.ui.listeners
 
 interface WorkManagerStatusListener {
     fun success(uri: String, mimeType: String)

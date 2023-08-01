@@ -29,6 +29,15 @@
         </activity>
 
         <service android:name="com.rcudev.player_service.service.MediaPlayerService"/>
+
         <receiver android:name=".alarmManager.AlarmReceiver"/>
+
+        <receiver android:name=".workManager.WorkManagerNotificationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.ACTION_OPEN_FILE" />
+            </intent-filter>
+        </receiver>
+
     </application>
 </manifest>

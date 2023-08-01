@@ -56,14 +56,14 @@ import com.example.playerapp.alarmManager.AlarmItem
 import com.example.playerapp.alarmManager.AndroidAlarmScheduler
 import com.example.playerapp.ui.globalComponents.ShadowedIconButton
 import com.example.playerapp.ui.globalComponents.ShowAlarmSchedulerDialog
+import com.example.playerapp.ui.listeners.WorkManagerStatusListener
+import com.example.playerapp.ui.model.FileForDownload
 import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicMoreMenu
 import com.example.playerapp.ui.theme.GrayLight
 import com.example.playerapp.ui.theme.SecondaryLight
 import com.example.playerapp.utils.DataHelper
 import com.example.playerapp.utils.WorkManagerUtils
-import com.example.playerapp.workManager.FileForDownload
-import com.example.playerapp.workManager.WorkManagerStatusListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -85,6 +85,21 @@ fun PlaylistDetailScreenMorePanel(
     val openDialog = remember { mutableStateOf(false) }
     val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
 
+    fun openFileIntent(uri: String, mimeType: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(uri.toUri(), mimeType)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        try {
+            context.startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(context, "Can't open file", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun showOpenFileSnackBar(uri: String, mimeType: String) {
+
+    }
+
     fun downloadMusic(music: Music) {
         WorkManagerUtils.startDownloadingFileWork(
             FileForDownload(
@@ -98,14 +113,7 @@ fun PlaylistDetailScreenMorePanel(
             lifecycleOwner.value,
             statusListener = object : WorkManagerStatusListener {
                 override fun success(uri: String, mimeType: String) {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.setDataAndType(uri.toUri(), mimeType)
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                    try {
-                        context.startActivity(intent)
-                    } catch (e: ActivityNotFoundException) {
-                        Toast.makeText(context, "Can't open file", Toast.LENGTH_SHORT).show()
-                    }
+                    showOpenFileSnackBar(uri, mimeType)
                 }
 
                 override fun failed(message: String) {

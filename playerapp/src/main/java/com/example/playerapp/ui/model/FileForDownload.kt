@@ -1,4 +1,4 @@
-package com.example.playerapp.workManager
+package com.example.playerapp.ui.model
 
 data class FileForDownload(
     val id: String,
