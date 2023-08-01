@@ -105,6 +105,7 @@ object DataHelper {
         MusicMoreMenu.Schedule(
             MusicMoreMenuItem("Schedule", R.drawable.ic_clock)
         ),
+        MusicMoreMenu.Download(MusicMoreMenuItem("Download", R.drawable.ic_download)),
         MusicMoreMenu.Like(MusicMoreMenuItem("Like", R.drawable.ic_heart)),
         MusicMoreMenu.Hide(MusicMoreMenuItem("Hide this song", R.drawable.ic_minus_rounded)),
         MusicMoreMenu.AddToPlaylist(

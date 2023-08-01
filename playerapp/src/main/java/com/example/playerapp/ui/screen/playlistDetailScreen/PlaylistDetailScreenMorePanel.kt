@@ -1,7 +1,8 @@
 package com.example.playerapp.ui.screen.playlistDetailScreen
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,12 +33,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +50,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import com.example.playerapp.R
 import com.example.playerapp.alarmManager.AlarmItem
 import com.example.playerapp.alarmManager.AndroidAlarmScheduler
@@ -57,6 +61,8 @@ import com.example.playerapp.ui.model.MusicMoreMenu
 import com.example.playerapp.ui.theme.GrayLight
 import com.example.playerapp.ui.theme.SecondaryLight
 import com.example.playerapp.utils.DataHelper
+import com.example.playerapp.utils.WorkManagerUtils
+import com.example.playerapp.workManager.FileForDownload
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -76,10 +82,7 @@ fun PlaylistDetailScreenMorePanel(
     }
 
     val openDialog = remember { mutableStateOf(false) }
-
-    BackHandler {
-        openDialog.value = false
-    }
+    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
@@ -98,11 +101,62 @@ fun PlaylistDetailScreenMorePanel(
             ) {
                 items(DataHelper.musicMoreMenus) { menu ->
                     MusicMorePanelMenuItem(musicMoreMenu = menu) {
-                        if (it is MusicMoreMenu.Schedule) {
-                            openDialog.value = true
-                        } else
-                            Toast.makeText(context, it.musicMoreMenuItem.title, Toast.LENGTH_SHORT)
+                        when (it) {
+                            is MusicMoreMenu.Schedule -> {
+                                openDialog.value = true
+                            }
+
+                            is MusicMoreMenu.Download -> {
+                                WorkManagerUtils.startDownloadingFileWork(
+                                    FileForDownload(
+                                        id = music.hashCode().toString(),
+                                        name = music.title,
+                                        type = "MP3",
+                                        url = music.url,
+                                        downloadedUri = null
+                                    ),
+                                    context,
+                                    lifecycleOwner.value,
+                                    { uri, mimeType ->
+                                        val intent = Intent(Intent.ACTION_VIEW)
+                                        intent.setDataAndType(uri.toUri(), mimeType)
+                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                                        try {
+                                            context.startActivity(intent)
+                                        } catch (e: ActivityNotFoundException) {
+                                            Toast.makeText(
+                                                context,
+                                                "Can't open file",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    },
+                                    {
+                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                                    },
+                                    {
+                                        Toast.makeText(context, "Loading", Toast.LENGTH_SHORT)
+                                            .show()
+                                    },
+                                    {
+                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                                    },
+                                    {
+                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                                    },
+                                    {
+                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+                                    }
+                                )
+                            }
+
+                            else -> Toast.makeText(
+                                context,
+                                it.musicMoreMenuItem.title,
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
+                        }
                     }
                 }
             }
