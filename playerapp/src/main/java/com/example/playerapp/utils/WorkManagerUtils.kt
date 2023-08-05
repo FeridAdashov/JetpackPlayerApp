@@ -128,18 +128,18 @@ object WorkManagerUtils {
             putString(FileDownloadWorker.FileParams.KEY_FILE_TYPE, file.type)
         }
 
-        val constraints = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
-            .setRequiresStorageNotLow(true).setRequiresBatteryNotLow(true).build()
-
-        val fileDownloadWorker =
-            OneTimeWorkRequestBuilder<FileDownloadWorker>().setConstraints(constraints)
-                .setInputData(data.build()).build()
-
-        fileDownloadWorker::class.java
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresStorageNotLow(true)
+            .setRequiresBatteryNotLow(true)
+            .build()
 
         val uploadWorkRequest =
-            OneTimeWorkRequestBuilder<FileDownloadWorker>().setInputData(data.build())
-                .setConstraints(constraints).setInitialDelay(0, TimeUnit.SECONDS).build()
+            OneTimeWorkRequestBuilder<FileDownloadWorker>()
+                .setInputData(data.build())
+                .setConstraints(constraints)
+                .setInitialDelay(0, TimeUnit.SECONDS)
+                .build()
 
         WorkManager.getInstance(context).enqueueUniqueWork(
             file.name, ExistingWorkPolicy.REPLACE, uploadWorkRequest

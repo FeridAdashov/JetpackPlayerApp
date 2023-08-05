@@ -8,10 +8,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Icon
 import android.net.Uri
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.BADGE_ICON_SMALL
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -77,8 +79,8 @@ class FileDownloadWorker(
 
     private fun buildDownloadingNotification(): Notification {
         return NotificationCompat.Builder(context, NotificationConstants.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("Downloading your file...")
+            .setSmallIcon(R.drawable.ic_download)
+            .setContentTitle(context.getString(R.string.downloading_your_file))
             .setOngoing(true)
             .setProgress(0, 0, true)
             .build()
@@ -113,7 +115,7 @@ class FileDownloadWorker(
             )
 
         return NotificationCompat.Builder(context, NotificationConstants.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_download)
             .setContentTitle(title)
             .addAction(actionDrawable, actionName, pendingIntent)
             .build()

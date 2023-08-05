@@ -26,4 +26,5 @@
     <string name="click_to_select_time">Click to select time</string>
     <string name="open_file">Open file</string>
     <string name="close">Close</string>
+    <string name="downloading_your_file">Downloading your file…</string>
 </resources>
