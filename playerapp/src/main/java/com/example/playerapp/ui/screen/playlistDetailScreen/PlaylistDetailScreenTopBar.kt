@@ -13,9 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.entity.Music
 import com.example.playerapp.R
 import com.example.playerapp.ui.globalComponents.ShadowedIconButton
-import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.theme.TitleGray
 import com.example.playerapp.ui.theme.White
 
@@ -68,6 +68,6 @@ fun PlaylistDetailScreenTopBar(
 private fun PlaylistDetailScreenTopBarPreview() {
     PlaylistDetailScreenTopBar(
         stringResource(id = R.string.playing_from_playlist),
-        music = Music("Mega hit mix","",)
+        music = Music("", "Mega hit mix", "")
     )
 }

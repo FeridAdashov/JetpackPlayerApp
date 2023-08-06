@@ -31,7 +31,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.playerapp.ui.model.Music
+import com.example.domain.entity.Music
 import com.example.playerapp.ui.navigation.NavigationScreens
 import com.example.playerapp.ui.theme.AppBarIconSelected
 import com.example.playerapp.ui.theme.AppBarIconUnselected
@@ -62,7 +62,7 @@ fun BottomBar(
         Column {
             if (mainViewModel.playerControllerVisibility)
                 MainPlayerControllerView(
-                    music = Music("don’t forget your roots - 2021", ""),
+                    music = Music("", "don’t forget your roots - 2021", ""),
                     mediaViewModel = mediaViewModel
                 )
             MenuBar(

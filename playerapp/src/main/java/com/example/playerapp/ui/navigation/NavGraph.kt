@@ -6,20 +6,21 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.playerapp.extension.fromJson
+import com.example.common.extensions.fromJson
+import com.example.domain.entity.Music
+import com.example.domain.entity.MusicCategoryType
 import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_ALBUM_ARG
 import com.example.playerapp.ui.constants.NavigationConstants.ABOUT_ALBUM_SCREEN_SOCIALS_ARG
 import com.example.playerapp.ui.constants.NavigationConstants.PLAYLIST_DETAILS_SCREEN_MUSIC_ARG
 import com.example.playerapp.ui.constants.NavigationConstants.SEARCH_SCREEN_CATEGORY_ARG
 import com.example.playerapp.ui.model.Album
-import com.example.playerapp.ui.model.Music
-import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.SocialNetwork
-import com.example.playerapp.ui.screen.libraryScreen.LibraryScreen
-import com.example.playerapp.ui.screen.premiumScreen.PremiumScreen
 import com.example.playerapp.ui.screen.aboutAlbumScreen.AlbumDetailScreen
+import com.example.playerapp.ui.screen.homeScreen.AddMusicScreen
 import com.example.playerapp.ui.screen.homeScreen.HomeScreen
+import com.example.playerapp.ui.screen.libraryScreen.LibraryScreen
 import com.example.playerapp.ui.screen.playlistDetailScreen.PlaylistDetailScreen
+import com.example.playerapp.ui.screen.premiumScreen.PremiumScreen
 import com.example.playerapp.ui.screen.searchScreen.SearchScreen
 import com.example.playerapp.ui.screen.searchTabScreen.SearchTabScreen
 import com.example.playerapp.ui.viewModel.SimpleMediaViewModel
@@ -96,6 +97,10 @@ fun NavGraph(navController: NavHostController, mediaViewModel: SimpleMediaViewMo
                 category = category,
                 navController = navController,
             )
+        }
+
+        composable(route = NavigationScreens.AddMusic.route) {
+            AddMusicScreen(navController = navController)
         }
     }
 }

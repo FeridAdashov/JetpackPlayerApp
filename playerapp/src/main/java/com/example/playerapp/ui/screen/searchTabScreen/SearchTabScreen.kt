@@ -42,7 +42,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
-import com.example.playerapp.extension.navigateToSearchScreen
+import com.example.playerapp.ui.extensions.navigateToSearchScreen
 import com.example.playerapp.ui.model.MusicCategory
 import com.example.playerapp.ui.navigation.NavigationScreens
 import com.example.playerapp.ui.theme.PrimaryLight

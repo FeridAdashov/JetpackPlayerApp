@@ -28,6 +28,7 @@ val IconGradientEnd = Color(0xFF1C1F22)
 val Pink = Color(0xFFE06D94)
 val DarkYellow = Color(0xFFEBB962)
 val Cyan = Color(0xFF7DD6EA)
+val RedDark = Color(0x90C72C2C)
 
 val BlueButtonGradientStart = Color(0xFF016BB8)
 val BlueButtonGradientEnd = Color(0xFF11A8FD)

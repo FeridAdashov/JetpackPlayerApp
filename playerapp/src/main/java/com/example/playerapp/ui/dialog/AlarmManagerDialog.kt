@@ -1,4 +1,4 @@
-package com.example.playerapp.ui.globalComponents
+package com.example.playerapp.ui.dialog
 
 import android.app.TimePickerDialog
 import android.widget.Toast
@@ -30,14 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.playerapp.R
-import com.example.playerapp.ui.theme.Blue
 import com.example.playerapp.ui.theme.DarkYellow
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 @Composable
-fun ShowAlarmSchedulerDialog(
+fun AlarmSchedulerDialog(
     onDismiss: () -> Unit,
     onSchedule: (time: LocalDateTime, message: String) -> Unit
 ) {

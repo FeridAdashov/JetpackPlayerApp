@@ -1,6 +1,7 @@
-package com.example.playerapp.ui.model
+package com.example.domain.entity
 
 data class Music(
+    val id: String? = null,
     val title: String,
     val url: String,
     val desc: String = "",

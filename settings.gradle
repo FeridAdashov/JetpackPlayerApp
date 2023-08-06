@@ -13,5 +13,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "JetpackPlayerApp"
+include ':data'
+include ':common'
+include ':domain'
 include ':playerapp'
 include ':player-service'

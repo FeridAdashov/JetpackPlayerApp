@@ -27,4 +27,19 @@
     <string name="open_file">Open file</string>
     <string name="close">Close</string>
     <string name="downloading_your_file">Downloading your file…</string>
+
+    <string name="socket_exception">Socket exception</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="timeout_exception">Servis timout exception</string>
+    <string name="data_parse_error">Data parse error</string>
+    <string name="ssl_exception">Certificate exception (ssl). My be your device date wrong or no internet</string>
+    <string name="check_network">"Please check your network!"</string>
+    <string name="check_internet_connection">Please, check your internet connection</string>
+    <string name="unauthorizedRequest">Unauthorized Request</string>
+    <string name="have_troubles">We have some troubles. Try later</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="data_not_found">Data not found!</string>
+    <string name="add_new_music">Add new music</string>
+    <string name="add">Add</string>
+
 </resources>

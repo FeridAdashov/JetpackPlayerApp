@@ -1,10 +1,10 @@
 package com.example.playerapp.utils
 
+import com.example.domain.entity.Music
+import com.example.domain.entity.MusicCategoryType
 import com.example.playerapp.R
 import com.example.playerapp.ui.model.Album
-import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicCategory
-import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.model.MusicEvent
 import com.example.playerapp.ui.model.MusicEventType
 import com.example.playerapp.ui.model.MusicMoreMenu
@@ -14,6 +14,7 @@ import com.example.playerapp.ui.model.SocialNetwork
 object DataHelper {
     val recentlyPlayedMusicList = listOf(
         Music(
+            "",
             "Mega hit mix",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Song | Six60",
@@ -21,6 +22,7 @@ object DataHelper {
             category = MusicCategoryType.PODCAST
         ),
         Music(
+            "",
             "La bede - Remi",
             "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_500KB_MP3.mp3",
             "E song | Oliver Tree",
@@ -28,6 +30,7 @@ object DataHelper {
             category = MusicCategoryType.EVENT
         ),
         Music(
+            "",
             "Un x 100to",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | PlaylistM7",
@@ -35,6 +38,7 @@ object DataHelper {
             category = MusicCategoryType.MADE_FOR_U
         ),
         Music(
+            "",
             "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
@@ -42,6 +46,7 @@ object DataHelper {
             category = MusicCategoryType.NEW_RELEASES
         ),
         Music(
+            "",
             "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
@@ -49,6 +54,7 @@ object DataHelper {
             category = MusicCategoryType.HINDI
         ),
         Music(
+            "",
             "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",
@@ -56,6 +62,7 @@ object DataHelper {
             category = MusicCategoryType.PUNJABI
         ),
         Music(
+            "",
             "Glenn Danzig",
             "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_500KB_MP3.mp3",
             "Playlist | Spotify",
@@ -63,6 +70,7 @@ object DataHelper {
             category = MusicCategoryType.TAMIL
         ),
         Music(
+            "",
             "Glenn Danzig",
             "https://samplelib.com/lib/preview/mp3/sample-12s.mp3",
             "Playlist | Spotify",

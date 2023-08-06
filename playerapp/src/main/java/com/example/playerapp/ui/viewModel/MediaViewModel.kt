@@ -11,7 +11,7 @@ import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
 import androidx.lifecycle.viewmodel.compose.saveable
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import com.example.playerapp.ui.model.Music
+import com.example.domain.entity.Music
 import com.rcudev.player_service.service.PlayerEvent
 import com.rcudev.player_service.service.SimpleMediaServiceHandler
 import com.rcudev.player_service.service.SimpleMediaState
@@ -114,7 +114,7 @@ class SimpleMediaViewModel @Inject constructor(
                     .setMediaMetadata(
                         MediaMetadata.Builder()
                             .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
-                            .setArtworkUri(Uri.parse("https://cdns-images.dzcdn.net/images/cover/1fddc1ab0535ee34189dc4c9f5f87bf9/264x264.jpg"))
+                            .setArtworkUri(Uri.parse(it.imageUrl))
                             .setAlbumTitle(it.title)
                             .setDisplayTitle(it.desc)
                             .build()
@@ -126,15 +126,17 @@ class SimpleMediaViewModel @Inject constructor(
     }
 
     fun setMusic(music: Music) {
+        val mediaData = MediaMetadata.Builder().apply {
+            if (!music.imageUrl.isNullOrBlank())
+                setArtworkUri(Uri.parse(music.imageUrl))
+            setAlbumTitle(music.title)
+            setDisplayTitle(music.desc)
+        }.build()
+
         val mediaItem = MediaItem.Builder()
             .setUri(music.url)
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setArtworkUri(Uri.parse("https://i.pinimg.com/736x/4b/02/1f/4b021f002b90ab163ef41aaaaa17c7a4.jpg"))
-                    .setAlbumTitle(music.title)
-                    .setDisplayTitle(music.desc)
-                    .build()
-            ).build()
+            .setMediaMetadata(mediaData)
+            .build()
 
         simpleMediaServiceHandler.addMediaItem(mediaItem)
     }

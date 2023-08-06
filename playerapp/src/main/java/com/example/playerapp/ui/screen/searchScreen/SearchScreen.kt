@@ -62,9 +62,9 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.domain.entity.Music
+import com.example.domain.entity.MusicCategoryType
 import com.example.playerapp.R
-import com.example.playerapp.ui.model.Music
-import com.example.playerapp.ui.model.MusicCategoryType
 import com.example.playerapp.ui.theme.White
 import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.utils.DataHelper

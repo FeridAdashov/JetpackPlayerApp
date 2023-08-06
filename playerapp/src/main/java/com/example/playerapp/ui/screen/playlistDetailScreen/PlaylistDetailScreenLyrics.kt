@@ -17,9 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.domain.entity.Music
 import com.example.playerapp.R
 import com.example.playerapp.ui.globalComponents.ShadowedIconButton
-import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.theme.SecondaryLight
 import com.example.playerapp.ui.theme.White
 import com.example.playerapp.utils.imageComponentBorderGradient
@@ -92,5 +92,5 @@ fun PlaylistDetailScreenLyrics(modifier: Modifier = Modifier, music: Music) {
 @Preview
 @Composable
 private fun PlaylistDetailScreenLyricsPreview() {
-    PlaylistDetailScreenLyrics(music = Music("mega hit mix","",))
+    PlaylistDetailScreenLyrics(music = Music("","mega hit mix", ""))
 }

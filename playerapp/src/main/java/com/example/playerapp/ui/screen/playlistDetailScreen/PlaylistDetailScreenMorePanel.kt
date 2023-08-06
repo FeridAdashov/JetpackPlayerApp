@@ -51,14 +51,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import com.example.domain.entity.Music
 import com.example.playerapp.R
 import com.example.playerapp.alarmManager.AlarmItem
 import com.example.playerapp.alarmManager.AndroidAlarmScheduler
+import com.example.playerapp.ui.dialog.AlarmSchedulerDialog
 import com.example.playerapp.ui.globalComponents.ShadowedIconButton
-import com.example.playerapp.ui.globalComponents.ShowAlarmSchedulerDialog
 import com.example.playerapp.ui.listeners.WorkManagerStatusListener
 import com.example.playerapp.ui.model.FileForDownload
-import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.model.MusicMoreMenu
 import com.example.playerapp.ui.theme.GrayLight
 import com.example.playerapp.ui.theme.SecondaryLight
@@ -97,7 +97,7 @@ fun PlaylistDetailScreenMorePanel(
     }
 
     fun showOpenFileSnackBar(uri: String, mimeType: String) {
-
+        openFileIntent(uri, mimeType)
     }
 
     fun downloadMusic(music: Music) {
@@ -179,7 +179,7 @@ fun PlaylistDetailScreenMorePanel(
     ) {}
 
     if (openDialog.value)
-        ShowAlarmSchedulerDialog(onDismiss = { openDialog.value = false }) { time, message ->
+        AlarmSchedulerDialog(onDismiss = { openDialog.value = false }) { time, message ->
             alarmScheduler.schedule(
                 AlarmItem(time, message, music.url)
             )
@@ -283,6 +283,6 @@ private fun PlaylistDetailScreenMorePanelPreview() {
     PlaylistDetailScreenMorePanel(
         bottomSheetScaffoldState,
         bottomSheetCoroutineScope,
-        Music("Don’t forget your roots - 2021", "Six 60", imageDrawable = R.drawable.img_six60)
+        Music("", "Don’t forget your roots - 2021", "Six 60", imageDrawable = R.drawable.img_six60)
     )
 }

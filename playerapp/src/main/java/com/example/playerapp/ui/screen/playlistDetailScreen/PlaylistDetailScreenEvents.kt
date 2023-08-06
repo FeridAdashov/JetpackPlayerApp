@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.playerapp.R
-import com.example.playerapp.extension.navigateToAboutAlbumScreen
+import com.example.playerapp.ui.extensions.navigateToAboutAlbumScreen
 import com.example.playerapp.ui.globalComponents.ShadowedGradientRoundedContainer
 import com.example.playerapp.ui.model.MusicEvent
 import com.example.playerapp.ui.model.MusicEventType

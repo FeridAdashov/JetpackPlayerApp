@@ -1,4 +1,4 @@
-package com.example.playerapp.ui.model
+package com.example.domain.entity
 
 enum class MusicCategoryType(val value : String) {
     UNKNOWN(""),

@@ -25,10 +25,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.domain.entity.Music
 import com.example.playerapp.R
 import com.example.playerapp.ui.globalComponents.playerController.ControllerIcon
 import com.example.playerapp.ui.globalComponents.playerController.PlayerBar
-import com.example.playerapp.ui.model.Music
 import com.example.playerapp.ui.theme.playerSliderColors
 import com.example.playerapp.ui.viewModel.MainViewModel
 import com.example.playerapp.ui.viewModel.SimpleMediaViewModel

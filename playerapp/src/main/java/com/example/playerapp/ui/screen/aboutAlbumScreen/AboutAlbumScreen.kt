@@ -102,12 +102,13 @@ fun AlbumDetailScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = PaddingValues(horizontal = 0.dp, vertical = 16.dp)
         ) {
-            album.posterDrawable?.let { image ->
+            album.posterUrl?.let { image ->
                 PosterView(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .fillMaxWidth()
-                        .aspectRatio(1.4f), drawable = image
+                        .aspectRatio(1.4f),
+                    imageUrl = image
                 )
             }
 
