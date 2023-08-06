@@ -164,14 +164,14 @@ fun YourMusicList(
             Text(text = listStatus.value, style = TextStyle(color = White))
     }
     if (mList != null) {
-        if (mList is RequestResult.Success && !mList.body.musicList.isNullOrEmpty()) {
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
-            ) {
-                val suggestionListColors = listOf(Pink, DarkYellow, Cyan)
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 30.dp)
+        ) {
+            val suggestionListColors = listOf(Pink, DarkYellow, Cyan)
 
+            if (mList is RequestResult.Success && !mList.body.musicList.isNullOrEmpty()) {
                 mList.body.musicList!!.forEachIndexed { index, music ->
                     item {
                         SuggestionAlbumView(
@@ -182,15 +182,16 @@ fun YourMusicList(
                         }
                     }
                 }
-                item {
-                    AddNewMusicWidget {
-                        addMusic.invoke()
-                    }
+            } else {
+                listStatus.value = "Empty list"
+            }
+            item {
+                AddNewMusicWidget {
+                    addMusic.invoke()
                 }
             }
-        } else {
-            listStatus.value = "Empty list"
         }
+
     }
 }
 

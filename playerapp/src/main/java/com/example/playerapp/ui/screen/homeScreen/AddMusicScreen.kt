@@ -50,11 +50,11 @@ fun AddMusicScreen(
     val mainViewModel: MainViewModel = hiltViewModel()
     val musicViewModel: MusicViewModel = hiltViewModel()
 
-    val title = remember { mutableStateOf("") }
-    val musicUrl = remember { mutableStateOf("") }
-    val imageUrl = remember { mutableStateOf("") }
-    val category = remember { mutableStateOf("") }
-    val desc = remember { mutableStateOf("") }
+    val title = remember { mutableStateOf("Mega hit mix") }
+    val musicUrl = remember { mutableStateOf("https://samplelib.com/lib/preview/mp3/sample-12s.mp3") }
+    val imageUrl = remember { mutableStateOf("https://shorturl.at/pLPT4") }
+    val category = remember { mutableStateOf("PODCAST") }
+    val desc = remember { mutableStateOf("Song | Six60") }
 
     val scrollState = rememberScrollState()
 
@@ -81,6 +81,7 @@ fun AddMusicScreen(
         } else if (it is RequestResult.Success) {
             musicViewModel.getMusicList()
             Toast.makeText(context, "Music added", Toast.LENGTH_SHORT).show()
+            onBackPressed()
         }
     }
 
@@ -138,12 +139,18 @@ fun AddMusicScreen(
                     return@Button
                 }
 
+                val searchedCategory = MusicCategoryType.values().find { it.value == category.value.uppercase() }
+                if (searchedCategory == null) {
+                    Toast.makeText(context, "Type correct category", Toast.LENGTH_SHORT).show()
+                    return@Button
+                }
+
                 musicViewModel.addMusic(
                     Music(
                         title = title.value,
                         url = musicUrl.value,
                         imageUrl = imageUrl.value,
-                        category = MusicCategoryType.valueOf(category.value.uppercase()),
+                        category = searchedCategory,
                         desc = desc.value,
                     )
                 )
