@@ -1,0 +1,1 @@
+-keep class com.legalist.userapp.common.R$font { *; }
