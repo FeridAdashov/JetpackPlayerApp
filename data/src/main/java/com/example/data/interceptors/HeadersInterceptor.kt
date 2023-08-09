@@ -6,14 +6,12 @@ import okhttp3.Response
 
 class HeadersInterceptor(private val userManager: UserManager) : Interceptor {
 
-    private val token = "Bearer token12345"
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val requestBuilder = request.newBuilder()
 
         requestBuilder.apply {
-            addHeader("Authorization", token)
+            addHeader("Authorization", userManager.getToken())
             addHeader("Language", userManager.getLanguage() ?: userManager.getDefaultLanguage())
         }
         return chain.proceed(requestBuilder.build())
